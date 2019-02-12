@@ -45,12 +45,62 @@ def insertionSort(li):
 
 def shellSort(li):
     """shell sort"""
-    gap = int(len(li) / 4)
+    gap = int(len(li) / 2)
 
     while gap > 0:
 
-        for i in range(0, len(li), gap):
+        for i in range(gap):
 
+            for j in range(i + gap, len(li), gap):
+
+                for k in range(j, -1, -gap):
+
+                    if li[k] > li[j]:
+                        li[k], li[j] = li[j], li[k]
+
+
+        gap = int(gap / 2)
+
+
+    print li
+
+
+def merge(left, right):
+    i,j =0,0
+    result = []
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i +=1
+        else:
+            result.append(right[j])
+            j +=1
+
+    if i < len(left):
+        for k in range(i, len(left)):
+            result.append(left[k])
+
+    if j < len(right):
+        for k in range(i, len(right)):
+            result.append(right[k])
+    
+    return result
+
+
+def mergeSort(li):
+    """merge sort"""
+
+    #print li
+
+    if len(li) < 2:
+        return li[:]
+    else:
+        mid = int ( len(li) / 2)
+        left = mergeSort(li[:mid])
+        right = mergeSort(li[mid:])
+        # print left
+        # print right
+        return merge(left, right)
 
 
 
@@ -68,4 +118,8 @@ if __name__ == "__main__":
 
     #insertionSort(li)
 
+    #shellSort(li)
 
+    lk = mergeSort(li)
+
+    print lk
