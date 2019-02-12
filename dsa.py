@@ -81,11 +81,10 @@ def merge(left, right):
             result.append(left[k])
 
     if j < len(right):
-        for k in range(i, len(right)):
+        for k in range(j, len(right)):
             result.append(right[k])
-    
-    return result
 
+    return result
 
 def mergeSort(li):
     """merge sort"""
@@ -98,8 +97,6 @@ def mergeSort(li):
         mid = int ( len(li) / 2)
         left = mergeSort(li[:mid])
         right = mergeSort(li[mid:])
-        # print left
-        # print right
         return merge(left, right)
 
 
