@@ -1,3 +1,5 @@
+import random
+
 def biSearch(li, x, low, high):
     """this is binary search tree"""
     # if high - low < 2:
@@ -58,7 +60,6 @@ def shellSort(li):
                     if li[k] > li[j]:
                         li[k], li[j] = li[j], li[k]
 
-
         gap = int(gap / 2)
 
 
@@ -94,11 +95,59 @@ def mergeSort(li):
     if len(li) < 2:
         return li[:]
     else:
-        mid = int ( len(li) / 2)
+        mid = int(len(li) / 2)
         left = mergeSort(li[:mid])
         right = mergeSort(li[mid:])
         return merge(left, right)
 
+
+def quickSort(li):
+    """quick sort"""
+
+    if len(li) < 2:
+        return li
+
+    median = int(len(li)/2)
+
+    left, right, eq = [], [], []
+    for i in range(len(li)):
+        if li[i] == li[median]:
+            eq.append(li[i])
+        elif li[i] < li[median]:
+            left.append(li[i])
+        else:
+            right.append(li[i])
+
+    return quickSort(left) + eq + quickSort(right)
+
+
+def partition(li, low, high):
+    """partitioning"""
+
+    pivot = li[high]
+    i = low - 1
+
+    for j in range(low, high-1):
+
+        if li[j] < pivot:
+            i = i + 1
+            li[j], li[i] = li[i], li[j]
+    i = i + 1
+    li[i], li[high] = li[high], li[i]
+
+    return i
+
+
+
+
+def quickSort2(li, low, high):
+    """quick sort 2"""
+
+    if low < high:
+        p = partition(li, low, high)
+
+        quickSort2(li, low, p-1)
+        quickSort2(li, p+1, high)
 
 
 if __name__ == "__main__":
@@ -117,6 +166,9 @@ if __name__ == "__main__":
 
     #shellSort(li)
 
-    lk = mergeSort(li)
+    # lk = mergeSort(li)
+    # print lk
 
-    print lk
+    quickSort2(li, 0, len(li)-1)
+    print li
+
